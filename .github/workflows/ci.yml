@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ${{matrix.os}}
-    startegy:
+    strategy:
       matrix:
           os: [ubuntu-latest, windows-latest, macOS-latest]
     
