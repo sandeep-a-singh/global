@@ -49,7 +49,8 @@ public class GradleSettingHandler {
     }
 
     private Projects getProjects(Path path) throws IOException {
-        String projectConfig = Files.readString(path);
+      //  String projectConfig = Files.readString(path);
+        String projectConfig = String.join("",Files.readAllLines(path));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Projects projects  = gson.fromJson(projectConfig, Projects.class);
         return projects;
