@@ -1,3 +1,4 @@
 dependencies {
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+	implementation 'org.springframework:spring-context'
+	implementation 'javax.validation:validation-api'
 }
