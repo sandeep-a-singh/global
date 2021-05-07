@@ -1,6 +1,7 @@
 plugins {
     id "application"
     id "base"
+    id("org.springframework.boot") version("2.3.4.RELEASE")
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 run {
@@ -63,10 +64,6 @@ subprojects {
     targetCompatibility = 1.8
 
     apply plugin: 'io.spring.dependency-management'
-
-    repositories {
-        jcenter()
-    }
 
     dependencyManagement {
         imports {
