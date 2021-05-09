@@ -2,7 +2,10 @@ rootProject.name='global'
 
 
 include 'core'
+include 'logback'
 include 'general'
 include 'country'
 include 'product'
 include 'target'
+include 'logback'
+
