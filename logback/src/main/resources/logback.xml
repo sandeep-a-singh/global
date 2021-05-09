@@ -6,15 +6,46 @@
         </encoder>
     </appender>
 
-    <appender name = "FILE" class = "ch.qos.logback.core.FileAppender">
-        <File>${LOG_PATH:-.}/log.log</File>
+<!--    <appender name = "FILE" class = "ch.qos.logback.core.FileAppender">
+        <File>${LOG_PATH:-.}/log/log.log</File>
         <encoder>
             <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss'Z'}] [%C] [%t] [%L] [%-5p] %m%n</pattern>
         </encoder>
-    </appender>
+    </appender>-->
 
+    <appender name="ARCHIVES" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH:-.}/log/log.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH:-.}/log/archive/log-%d{yyyy-MM-dd-}.%i.log.zip</fileNamePattern>
+            <maxFileSize>2KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--<appender name="ARCHIEVE_LOG_BY_TIME_AND_SIZE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH:-.}/log.log</File>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${LOG_PATH:-.}/%d{yyyy-MM-dd}/archive/%d{yyyy-MM-dd-mm-ss}.%i.log.zip
+            </fileNamePattern>
+            <maxFileSize>5KB</maxFileSize>
+            <maxHistory>20</maxHistory>
+            <totalSizeCap>1MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</pattern>
+        </encoder>
+    </appender>-->
     <root level = "INFO">
+<!--
         <appender-ref ref = "FILE"/>
+-->
+        <appender-ref ref = "ARCHIVES"/>
         <appender-ref ref = "STDOUT"/>
     </root>
 </configuration>
