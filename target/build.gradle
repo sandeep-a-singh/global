@@ -2,7 +2,7 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
 	implementation project(':product')
-
+	implementation project(':datasource')
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
 }
 
