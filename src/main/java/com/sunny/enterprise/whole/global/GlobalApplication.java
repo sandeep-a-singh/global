@@ -1,13 +1,9 @@
 package com.sunny.enterprise.whole.global;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.sunny.enterprise.whole.global.handler.GradleSettingHandler;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
