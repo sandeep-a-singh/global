@@ -1,0 +1,19 @@
+spring:
+  primary:
+    datasource:
+      url: jdbc:oracle:thin:@localhost:1521:orcl
+      username: CREDENTIALS
+      password: CREDENTIALS
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+  secondary:
+    datasource:
+      url: jdbc:oracle:thin:@localhost:1521:orcl
+      username: PFMS
+      password: PFMS
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    database: oracle

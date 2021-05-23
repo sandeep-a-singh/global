@@ -7,3 +7,5 @@ include 'general'
 include 'country'
 include 'product'
 include 'target'
+include 'datasource'
+
