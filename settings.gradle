@@ -8,4 +8,5 @@ include 'country'
 include 'product'
 include 'target'
 include 'datasource'
+include 'config'
 

@@ -1,5 +1,6 @@
 package com.sunny.enterprise.target.controller;
 
+import com.sunny.enterprise.core.product.exception.UnsupportedProduct;
 import com.sunny.enterprise.target.repo.RoleRepository;
 import com.sunny.enterprise.target.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,8 @@ public class ApplicationController {
         return roleRepository.getRoles();
     }
 
+    @GetMapping("/throw")
+    public List throwOut() {
+        throw  new UnsupportedProduct();
+    }
 }
