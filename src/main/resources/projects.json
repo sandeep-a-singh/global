@@ -5,8 +5,8 @@
       "subProjectNames" : ["logback","core","general","country","product","target"]
      },
     {
-      "name": "proj_2",
-      "subProjectNames" : ["abc","xyz","pqr","suv"]
+      "name": "Config",
+      "subProjectNames" : ["config"]
     },
     {
       "name": "proj_3"
