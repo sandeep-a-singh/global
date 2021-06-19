@@ -2,6 +2,8 @@ dependencies {
 	implementation project(':country')
 
 	implementation 'org.springframework:spring-context'
+	implementation 'org.springframework:spring-web'
+	implementation 'org.springframework:spring-webmvc'
 	implementation 'javax.validation:validation-api'
 }
 
