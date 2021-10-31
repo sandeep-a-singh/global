@@ -15,7 +15,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ApplicationControllerTest {
-
     @Container
     MySQLContainer mySQLContainer = (MySQLContainer) new MySQLContainer("mysql:latest")
             .withDatabaseName("spring-reddit-test-db")
