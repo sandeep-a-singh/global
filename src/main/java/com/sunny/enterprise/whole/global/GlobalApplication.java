@@ -33,13 +33,6 @@ public class GlobalApplication {
         List<String> projectList = data.stream().filter(line->line.startsWith("def currProj =")).collect(Collectors.toList());
 
 
-      /*  try (FileWriter fw = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write("dadad");
-            bw.newLine();
-        }
-        projectList.stream().forEach(System.out::println);
-        */
         new GlobalApplication().printPath();
     }
 

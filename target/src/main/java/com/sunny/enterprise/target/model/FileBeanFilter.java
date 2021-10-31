@@ -1,2 +1,5 @@
-package com.sunny.enterprise.target.model;public class FileBeanFilter {
+package com.sunny.enterprise.target.model;
+
+public class FileBeanFilter extends FileBean{
+
 }
