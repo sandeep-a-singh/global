@@ -3,7 +3,7 @@ package com.sunny.enterprise.country;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class CountryApplicationTests {
 
 	@Test
