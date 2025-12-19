@@ -1,7 +1,8 @@
 plugins {
     id "application"
     id "base"
-    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id 'org.springframework.boot' version '4.0.0'
+    id "io.spring.dependency-management" version "1.1.7"
 }
 run {
    standardInput = System.in
@@ -20,29 +21,33 @@ allprojects {
 
 
     group = 'com.sunny.enterprise'
-version = '0.0.1-SNAPSHOT'
+    version = '0.0.1-SNAPSHOT'
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
-sourceCompatibility = '1.8'
+//sourceCompatibility = '1.8'
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
 
     repositories {
-        maven { url "http://repo.maven.apache.org/maven2" }
+        maven { url = uri("https://repo.maven.apache.org/maven2") }
         mavenCentral()
     }
 
     dependencies {
 
-        testImplementation('org.springframework.boot:spring-boot-starter-test:2.1.0.RELEASE') {
+        testImplementation('org.springframework.boot:spring-boot-starter-test:4.0.0') {
             exclude group: 'junit', module: 'junit'
         }
-        testCompile 'org.junit.jupiter:junit-jupiter:5.5.2'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:6.0.1'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.0.1'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.1'
     }
 
     test {
         useJUnitPlatform()
+        jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
         testLogging {
             events "passed", "skipped", "failed"
         }
@@ -50,7 +55,7 @@ sourceCompatibility = '1.8'
 }
 
     dependencies {
-        implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
+        implementation 'com.google.code.gson:gson:2.7'
 
     }
 
@@ -58,14 +63,14 @@ sourceCompatibility = '1.8'
 subprojects {
     println("Sub -->"+it.name)
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+//    sourceCompatibility = 1.8
+//    targetCompatibility = 1.8
 
     apply plugin: 'io.spring.dependency-management'
 
     dependencyManagement {
         dependencies {
-            dependency 'org.springframework.boot:spring-boot-starter-web:2.1.0.RELEASE'
+            dependency 'org.springframework.boot:spring-boot-starter-web:4.0.0'
         }
     }
 }
