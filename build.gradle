@@ -6,7 +6,7 @@ plugins {
 }
 run {
     standardInput = System.in
-    def env = project.findProperty("idx")?:"-1"
+    def env = project.findProperty("idx")?:"-1" //gradle clean run -Pidx=0
     args "${env}"
 }
 application {
