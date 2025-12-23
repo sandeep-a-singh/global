@@ -2,11 +2,11 @@
   "projects" : [
     {
       "name": "proj_1",
-      "subProjectNames" : ["core","general","country","product","target"]
+      "subProjectNames" : ["logback","core","general","country","product","target"]
      },
     {
-      "name": "proj_2",
-      "subProjectNames" : ["abc","xyz","pqr","suv"]
+      "name": "Config",
+      "subProjectNames" : ["config"]
     },
     {
       "name": "proj_3"
