@@ -15,9 +15,16 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class GradleSettingHandler {
+    Integer project = -1;
+
+    public GradleSettingHandler(String[] args) {
+    if(null != args && args.length>0){
+            this.project = Integer.parseInt(args[0]);
+        }
+    }
 
     public boolean handle() throws IOException, URISyntaxException {
-        Path path =getConfigPath("projects.json");
+        Path path = getConfigPath("projects.json");
 
         Projects projects = getProjects(path);
 
@@ -29,19 +36,25 @@ public class GradleSettingHandler {
     private void writeToSettings(Projects projects) throws IOException {
         FileWriter fw = new FileWriter(new File("./settings.gradle"));
         BufferedWriter bw = new BufferedWriter(fw);
-        writeRootProject(bw,"global");
-        IntStream.range(0,projects.getProjects().size()).forEach(i->System.out.println(i+")"+projects.getProjects().get(i).getName()));
-        System.out.println("Select Project index");
-        int index =  Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
-        Project project =projects.getProjects().get(index);
-        System.out.println("Selected ==> "+project.getName());
+        writeRootProject(bw, "global");
+        IntStream.range(0, projects.getProjects().size())
+                .forEach(i -> System.out.println(i + ")" + projects.getProjects().get(i).getName()));
+        int index = -1;
+        if (project != -1) {
+            index = project;
+        } else {
+            System.out.println("Select Project index");
+            index = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+        }
 
+        Project project = projects.getProjects().get(index);
+        System.out.println("Selected ==> " + project.getName());
 
-                      if(null != project.getSubProjectNames() && !project.getSubProjectNames().isEmpty()) {
-                          project.getSubProjectNames().stream().forEach(subModule -> {
-                                  writesubModules(bw, subModule);
-                          });
-                      }
+        if (null != project.getSubProjectNames() && !project.getSubProjectNames().isEmpty()) {
+            project.getSubProjectNames().stream().forEach(subModule -> {
+                writesubModules(bw, subModule);
+            });
+        }
 
         bw.flush();
         bw.close();
@@ -49,31 +62,32 @@ public class GradleSettingHandler {
     }
 
     private Projects getProjects(Path path) throws IOException {
-      //  String projectConfig = Files.readString(path);
-        String projectConfig = String.join("",Files.readAllLines(path));
+        // String projectConfig = Files.readString(path);
+        String projectConfig = String.join("", Files.readAllLines(path));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Projects projects  = gson.fromJson(projectConfig, Projects.class);
+        Projects projects = gson.fromJson(projectConfig, Projects.class);
         return projects;
     }
 
-    private Path  getConfigPath(String configFileName) throws URISyntaxException {
-        URL url =this.getClass().getClassLoader().getResource(configFileName);
-        return Paths.get( url.toURI());
+    private Path getConfigPath(String configFileName) throws URISyntaxException {
+        URL url = this.getClass().getClassLoader().getResource(configFileName);
+        return Paths.get(url.toURI());
     }
-    private void writesubModules(BufferedWriter bw, String subModule)   {
-          try {
-              bw.write("include" + " '" + subModule + "'");
-              bw.newLine();
-          }catch (IOException exception)
-          {
-              exception.printStackTrace();
-          }
+
+    private void writesubModules(BufferedWriter bw, String subModule) {
+        try {
+            bw.write("include" + " '" + subModule + "'");
+            bw.newLine();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
+
     private void writeRootProject(BufferedWriter bw, String root) throws IOException {
-            bw.write("rootProject.name='"+root+"'");
-            bw.newLine();
-            bw.newLine();
-            bw.newLine();
+        bw.write("rootProject.name='" + root + "'");
+        bw.newLine();
+        bw.newLine();
+        bw.newLine();
     }
 
 }

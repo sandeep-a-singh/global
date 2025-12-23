@@ -5,7 +5,9 @@ plugins {
     id "io.spring.dependency-management" version "1.1.7"
 }
 run {
-   standardInput = System.in
+    standardInput = System.in
+    def env = project.findProperty("idx")?:"-1"
+    args "${env}"
 }
 application {
     mainClass = "com.sunny.enterprise.whole.global.GlobalApplication"
@@ -55,7 +57,7 @@ allprojects {
 }
 
     dependencies {
-        implementation 'com.google.code.gson:gson:2.7'
+        implementation 'com.google.code.gson:gson:2.8.9'
 
     }
 
