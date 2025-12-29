@@ -37,7 +37,6 @@ allprojects {
     }
 
     dependencies {
-
         testImplementation('org.springframework.boot:spring-boot-starter-test:4.0.0') {
             exclude group: 'junit', module: 'junit'
         }
@@ -73,6 +72,8 @@ subprojects {
     dependencyManagement {
         dependencies {
             dependency 'org.springframework.boot:spring-boot-starter-web:4.0.0'
+            dependency 'org.springframework.boot:spring-boot-starter-thymeleaf:4.0.0'
+            dependency 'org.springframework.boot:spring-boot-starter-webmvc:4.0.0'
         }
     }
 }

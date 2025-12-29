@@ -1,0 +1,8 @@
+rootProject.name='global'
+
+
+include 'core'
+include 'general'
+include 'country'
+include 'product'
+include 'target'

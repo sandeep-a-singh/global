@@ -5,8 +5,8 @@
       "subProjectNames" : ["core","general","country","product","target"]
      },
     {
-      "name": "proj_2",
-      "subProjectNames" : ["abc","xyz","pqr","suv"]
+      "name": "Portal",
+      "subProjectNames" : ["portal"]
     },
     {
       "name": "proj_3"

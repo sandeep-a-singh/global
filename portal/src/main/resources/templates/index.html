@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spring App Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+        --primary-color: #2c3e50;
+        --accent-color: #3498db;
+        --bg-light: #f4f7f6;
+        --drawer-width: 250px;
+        --header-height: 60px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: #333; }
+
+    /* --- HEADER --- */
+    header {
+        height: var(--header-height);
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.5rem;
+        position: fixed;
+        top: 0; width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .menu-btn { cursor: pointer; font-size: 1.2rem; border: none; background: none; }
+
+    .profile-area { display: flex; align-items: center; gap: 0.8rem; cursor: pointer; }
+    .avatar { width: 35px; height: 35px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; }
+
+    /* --- NAVIGATION DRAWER --- */
+    .drawer {
+        position: fixed;
+        top: 0; left: calc(-1 * var(--drawer-width));
+        width: var(--drawer-width);
+        height: 100%;
+        background: var(--primary-color);
+        color: white;
+        transition: 0.3s ease;
+        z-index: 1001;
+        padding-top: 2rem;
+    }
+
+    .drawer.active { left: 0; }
+    .drawer ul { list-style: none; padding: 1rem; }
+    .drawer ul li { padding: 1rem; border-bottom: 1px solid #3e5871; transition: 0.2s; }
+    .drawer ul li:hover { background: var(--accent-color); cursor: pointer; }
+    .drawer ul li i { margin-right: 10px; width: 20px; }
+
+    /* --- MAIN CONTENT --- */
+    main {
+        margin-top: var(--header-height);
+        padding: 2rem;
+        min-height: calc(100vh - 120px);
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+    /* --- FOOTER --- */
+    footer {
+        background: #ddd;
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    /* Overlay when drawer is open */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    }
+    .overlay.active { display: block; }
+
+    /* Desktop Adjustments */
+    @media (min-width: 1024px) {
+        .menu-btn { display: none; }
+        .drawer { left: 0; top: var(--header-height); }
+        main { margin-left: var(--drawer-width); }
+        header { padding-left: calc(var(--drawer-width) + 1.5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<header>
+  <div class="header-left">
+    <button class="menu-btn" onclick="toggleDrawer()"><i class="fas fa-bars"></i></button>
+    <h2 style="font-weight: 600; color: var(--primary-color);">MyAPI Portal</h2>
+  </div>
+  <div class="profile-area">
+    <span>John Doe</span>
+    <div class="avatar"><i class="fas fa-user"></i></div>
+  </div>
+</header>
+
+<nav class="drawer" id="drawer">
+  <ul>
+    <li><i class="fas fa-home"></i> Dashboard</li>
+    <li><i class="fas fa-database"></i> API Endpoints</li>
+    <li onclick="loadContent('/register')"><i class="fa-solid fa-bullseye"></i> Register</li>
+    <li><i class="fas fa-chart-line"></i> Analytics</li>
+    <li><i class="fas fa-cog"></i> Settings</li>
+    <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+  </ul>
+</nav>
+
+<main>
+  <div class="card">
+    <h1>Welcome Back!</h1>
+    <p style="margin-top: 1rem; line-height: 1.6;">
+      This project is configured as a Spring Multi-module application.
+      You are currently viewing the default index page served by the <strong>api-host</strong> module.
+    </p>
+    <br>
+    <button style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Explore Documentation
+    </button>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 Spring Multi-module Project | Built with ❤️ for Devs
+</footer>
+
+<script>
+  function toggleDrawer() {
+      document.getElementById('drawer').classList.toggle('active');
+      document.getElementById('overlay').classList.toggle('active');
+  }
+
+  // Close drawer when clicking overlay
+  document.getElementById('overlay').onclick = toggleDrawer;
+  async function loadContent(url) {
+      const mainElement = document.querySelector('main');
+
+      try {
+          // 1. Fetch the HTML from Spring
+          const response = await fetch(url);
+
+          if (!response.ok) throw new Error('Network response was not ok');
+
+          const html = await response.text();
+
+          // 2. Inject the HTML into the <main> tag
+          mainElement.innerHTML = html;
+
+          // 3. Close the drawer (on mobile)
+          if (window.innerWidth < 1024) {
+              toggleDrawer();
+          }
+
+      } catch (error) {
+          console.error('Error loading content:', error);
+          mainElement.innerHTML = "<p>Error loading page. Please try again.</p>";
+      }
+  }
+
+  document.querySelector('main').addEventListener('submit', async function(e) {
+    // Check if the submitted element is a form
+    if (e.target && e.target.tagName === 'FORM') {
+        e.preventDefault(); // Stop page refresh
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const mainElement = document.querySelector('main');
+
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            const resultHtml = await response.text();
+            mainElement.innerHTML = resultHtml; // Load the response (success/error) into main
+        } catch (error) {
+            console.error("Form submission failed", error);
+        }
+    }
+});
+</script>
+</body>
+</html>
